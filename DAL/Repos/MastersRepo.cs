@@ -22,7 +22,7 @@ namespace DAL.Repos
 
         public Item GetWithGroupAndUnit(int id)
         {
-            return db.Items.Include(x => x.Group).Include(x => x.Group).FirstOrDefault(x => x.Id == id);
+            return db.Items.Include(x => x.Group).Include(x => x.Unit).FirstOrDefault(x => x.Id == id);
         }
 
     }

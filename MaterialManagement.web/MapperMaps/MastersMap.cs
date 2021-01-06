@@ -4,9 +4,9 @@ using Models.ViewModels;
 
 namespace MaterialManagement.web.MapperMaps
 {
-    public class ItempProfile:Profile
+    public class ItemProfile:Profile
     {
-        public ItempProfile()
+        public ItemProfile()
         {
             this.CreateMap<Item, ItemVM>();
         }

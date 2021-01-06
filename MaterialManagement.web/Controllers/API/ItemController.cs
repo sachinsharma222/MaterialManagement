@@ -48,7 +48,7 @@ namespace MaterialManagement.web.Controllers.API
             }
         }
         [HttpGet("{id:int}")]
-        public ActionResult<Item> Get(int id,bool includeGroup = false)
+        public ActionResult<ItemVM> Get(int id,bool includeGroup = false)
         {
             try
             {
