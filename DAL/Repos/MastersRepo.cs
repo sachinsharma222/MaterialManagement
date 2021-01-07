@@ -29,9 +29,14 @@ namespace DAL.Repos
 
     public class GroupRepo : BaseRepo<ItemGroup>
     {
+        private readonly AppDbContext db;
         public GroupRepo(AppDbContext db) : base(db)
         {
-
+            this.db = db;
         }
+        //bool IEnumerable<ItemGroup> GroupItemExists(int id)
+        //{
+        //    return db.Items.Any(e => e.Id == id);
+        //}
     }
 }

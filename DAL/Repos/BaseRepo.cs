@@ -57,6 +57,11 @@ namespace DAL.Repos
             return db.Set<T>().Where(expression).ToList();
         }
 
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
         public bool Update(T data)
         {
             try
@@ -69,6 +74,11 @@ namespace DAL.Repos
             {
                 return false;
             }
+        }
+
+        public T IsExist(int id)
+        {
+            return db.Set<T>().Find(id);
         }
     }
 }

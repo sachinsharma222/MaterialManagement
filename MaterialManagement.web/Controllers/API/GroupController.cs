@@ -2,6 +2,7 @@
 using DAL.Repos.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models.Entities;
 using Models.ViewModels;
@@ -17,6 +18,8 @@ namespace MaterialManagement.web.Controllers.API
         private readonly ILogger<GroupController> logger;
         private readonly MastersFactory mastersFactory;
         private readonly IMapper mapper;
+
+        
 
         public GroupController(ILogger<GroupController> logger, MastersFactory mastersFactory, IMapper mapper)
         {
@@ -61,6 +64,76 @@ namespace MaterialManagement.web.Controllers.API
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult<ItemGroup> Post(ItemGroupVM model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");                
+
+                mastersFactory.GetGroupRepo.Add(new ItemGroup()
+                {
+                    Name = model.Name,
+                    IsActive = model.IsActive               
+                });
+
+                mastersFactory.GetGroupRepo.Save();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<ItemGroup> Put(ItemGroupVM model)
+        {
+            if (model.Id!=0)
+            {
+                return BadRequest();
+            }
+            var data= mastersFactory.GetGroupRepo.IsExist(model.Id);
+            try
+            {
+                var updatedData = mastersFactory.GetGroupRepo.Update(data);
+
+                mastersFactory.GetGroupRepo.Save();
+                                return Ok(updatedData);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+
+
+        }
+        [HttpDelete("{id}")]
+        public ActionResult <ItemGroup> Delete(ItemGroupVM model)
+        {
+            try
+            {
+                if (model.Id != 0)
+                {
+                    var groupitem = mastersFactory.GetGroupRepo.IsExist(model.Id);
+                    mastersFactory.GetGroupRepo.Delete(groupitem);
+                    
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            
         }
 
 

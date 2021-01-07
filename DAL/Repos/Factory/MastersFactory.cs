@@ -11,6 +11,9 @@ namespace DAL.Repos.Factory
         public ItemRepo GetItemRepo { get { return new ItemRepo(db); } }
 
         public GroupRepo GetGroupRepo { get { return new GroupRepo(db); } }
+        
+
+
 
     }
 }
