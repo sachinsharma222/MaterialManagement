@@ -94,15 +94,16 @@ namespace MaterialManagement.web.Controllers.API
         [HttpPut("{id}")]
         public ActionResult<ItemGroup> Put(ItemGroupVM model)
         {
-            if (model.Id!=0)
+            if (model.Id==0)
             {
                 return BadRequest();
             }
-            var data= mastersFactory.GetGroupRepo.IsExist(model.Id);
+            var data= mastersFactory.GetGroupRepo.Get(model.Id);
+            if (data == null)
+                return NotFound();
             try
             {
                 var updatedData = mastersFactory.GetGroupRepo.Update(data);
-
                 mastersFactory.GetGroupRepo.Save();
                                 return Ok(updatedData);
             }
@@ -120,13 +121,17 @@ namespace MaterialManagement.web.Controllers.API
         {
             try
             {
-                if (model.Id != 0)
-                {
-                    var groupitem = mastersFactory.GetGroupRepo.IsExist(model.Id);
-                    mastersFactory.GetGroupRepo.Delete(groupitem);
-                    
-                }
-                return Ok();
+                if (model.Id == 0)
+                    return BadRequest("Invalid Data.");
+
+                var groupitem = mastersFactory.GetGroupRepo.Get(model.Id);
+                if (groupitem == null)
+                    return NotFound();
+
+               if(mastersFactory.GetGroupRepo.Delete(groupitem))
+                    return Ok();
+
+                return NotFound("Data not updated");
             }
             catch (Exception ex)
             {

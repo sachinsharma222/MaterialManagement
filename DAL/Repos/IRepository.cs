@@ -15,7 +15,5 @@ namespace DAL.Repos
         bool Delete(T data);
 
         void Save();
-
-        T IsExist(int id);
     }
 }

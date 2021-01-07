@@ -75,10 +75,5 @@ namespace DAL.Repos
                 return false;
             }
         }
-
-        public T IsExist(int id)
-        {
-            return db.Set<T>().Find(id);
-        }
     }
 }
