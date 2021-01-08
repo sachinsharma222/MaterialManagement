@@ -1,4 +1,5 @@
 ﻿using DAL.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,20 @@ namespace DAL.Repos
         {
             db.SaveChanges();
         }
+
+        //public void Update(T data)
+        //{
+        //    try
+        //    {
+        //        db.Attach(data);
+        //        db.Entry(data).State = EntityState.Modified;
+        //    }
+        //    catch (Exception ex)
+        //    {                
+        //    }
+
+        //}
+
 
         public bool Update(T data)
         {

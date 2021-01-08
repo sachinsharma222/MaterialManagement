@@ -19,7 +19,7 @@ namespace MaterialManagement.web.Controllers.API
         private readonly MastersFactory mastersFactory;
         private readonly IMapper mapper;
 
-        
+
 
         public GroupController(ILogger<GroupController> logger, MastersFactory mastersFactory, IMapper mapper)
         {
@@ -67,18 +67,16 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<ItemGroup> Post(ItemGroupVM model)
+        public ActionResult<ItemGroup> Post([FromBody] ItemGroupVM model)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest("Invalid data.");                
+                    return BadRequest("Invalid data.");
 
-                mastersFactory.GetGroupRepo.Add(new ItemGroup()
-                {
-                    Name = model.Name,
-                    IsActive = model.IsActive               
-                });
+                var entity = mapper.Map<ItemGroup>(model);
+                entity.CreatedDate = DateTime.Now;
+                mastersFactory.GetGroupRepo.Add(entity);
 
                 mastersFactory.GetGroupRepo.Save();
 
@@ -92,20 +90,27 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ItemGroup> Put(ItemGroupVM model)
+        public ActionResult<ItemGroup> Put(int id, [FromBody]  ItemGroupVM model)
         {
-            if (model.Id==0)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-            var data= mastersFactory.GetGroupRepo.Get(model.Id);
-            if (data == null)
+            if (id != model.Id)
+            {
+                return BadRequest("Ids did not match");
+            }
+
+            if (model == null)
                 return NotFound();
+
             try
             {
-                var updatedData = mastersFactory.GetGroupRepo.Update(data);
-                mastersFactory.GetGroupRepo.Save();
-                                return Ok(updatedData);
+                var entity = mapper.Map<ItemGroup>(model);
+                entity.ModifiedDate = DateTime.Now;
+                 mastersFactory.GetGroupRepo.Update(entity);
+                //mastersFactory.GetGroupRepo.Save();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -116,8 +121,9 @@ namespace MaterialManagement.web.Controllers.API
 
 
         }
+
         [HttpDelete("{id}")]
-        public ActionResult <ItemGroup> Delete(ItemGroupVM model)
+        public ActionResult<ItemGroup> Delete(ItemGroupVM model)
         {
             try
             {
@@ -128,7 +134,7 @@ namespace MaterialManagement.web.Controllers.API
                 if (groupitem == null)
                     return NotFound();
 
-               if(mastersFactory.GetGroupRepo.Delete(groupitem))
+                if (mastersFactory.GetGroupRepo.Delete(groupitem))
                     return Ok();
 
                 return NotFound("Data not updated");
@@ -138,7 +144,7 @@ namespace MaterialManagement.web.Controllers.API
                 logger.LogError(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            
+
         }
 
 

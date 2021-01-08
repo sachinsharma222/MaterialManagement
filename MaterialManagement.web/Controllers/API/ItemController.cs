@@ -14,14 +14,14 @@ namespace MaterialManagement.web.Controllers.API
 
     public class ItemController : BaseController
     {
-        private readonly MastersFactory mFactory;
+        private readonly MastersFactory _mFactory;
         private readonly IMapper mapper;
 
         private ILogger<ItemController> Logger { get; }
 
         public ItemController(MastersFactory mFactory,ILogger<ItemController> logger,IMapper mapper)
         {
-            this.mFactory = mFactory;
+            this._mFactory = mFactory;
             Logger = logger;
             this.mapper = mapper;
         }
@@ -33,9 +33,9 @@ namespace MaterialManagement.web.Controllers.API
             {
                 IEnumerable<Item> data = null;
                 if (includeGroup)
-                    data = mFactory.GetItemRepo.GetWithGroupAndUnit();
+                    data = _mFactory.GetItemRepo.GetWithGroupAndUnit();
                 else
-                    data = mFactory.GetItemRepo.Get();
+                    data = _mFactory.GetItemRepo.Get();
 
                 var model=mapper.Map<ItemVM[]>(data);
 
@@ -54,9 +54,9 @@ namespace MaterialManagement.web.Controllers.API
             {
                 Item data = null;
                 if (includeGroup)
-                    data = mFactory.GetItemRepo.GetWithGroupAndUnit(id);
+                    data = _mFactory.GetItemRepo.GetWithGroupAndUnit(id);
                 else
-                    data=mFactory.GetItemRepo.Get(id);
+                    data=_mFactory.GetItemRepo.Get(id);
 
                 if (data == null)
                     return NotFound();
@@ -71,5 +71,90 @@ namespace MaterialManagement.web.Controllers.API
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+
+        [HttpPost]
+        public ActionResult<Item> Post([FromBody] ItemVM model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");
+
+                var entity = mapper.Map<Item>(model);
+                entity.CreatedDate = DateTime.Now;
+                _mFactory.GetItemRepo.Add(entity);
+
+                _mFactory.GetItemRepo.Save();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpPut("{id}")]
+        public ActionResult<Item> Put(int id, [FromBody] ItemVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != model.Id)
+            {
+                return BadRequest("Ids did not match");
+            }
+
+            if (model == null)
+                return NotFound();
+
+            try
+            {
+                var entity = mapper.Map<Item>(model);
+                entity.ModifiedDate = DateTime.Now;
+                _mFactory.GetItemRepo.Update(entity);
+                //mastersFactory.GetGroupRepo.Save();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+
+
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Item> Delete(ItemVM model)
+        {
+            try
+            {
+                if (model.Id == 0)
+                    return BadRequest("Invalid Data.");
+
+                var entity = _mFactory.GetItemRepo.Get(model.Id);
+                if (entity == null)
+                    return NotFound();
+
+                if (_mFactory.GetItemRepo.Delete(entity))
+                    return Ok();
+
+                return NotFound("Data not updated");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
+
     }
 }

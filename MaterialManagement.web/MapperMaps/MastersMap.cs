@@ -12,6 +12,14 @@ namespace MaterialManagement.web.MapperMaps
         }
     }
 
+    public class ItemReverseProfile : Profile
+    {
+        public ItemReverseProfile()
+        {
+            this.CreateMap<ItemVM,Item>();
+        }
+    }
+
     public class ItemGroupProfile : Profile
     {
         public ItemGroupProfile()
@@ -19,4 +27,13 @@ namespace MaterialManagement.web.MapperMaps
             this.CreateMap<ItemGroup, ItemGroupVM>();
         }
     }
+
+    public class ItemGroupReverseProfile : Profile
+    {
+        public ItemGroupReverseProfile()
+        {
+            this.CreateMap<ItemGroupVM, ItemGroup>();
+        }
+    }
+
 }

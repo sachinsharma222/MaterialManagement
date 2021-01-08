@@ -12,6 +12,9 @@ namespace DAL.Repos
 
         bool Add(T data);
         bool Update(T data);
+
+        //void Update(T data);
+
         bool Delete(T data);
 
         void Save();
