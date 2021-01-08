@@ -2,14 +2,10 @@
 using DAL.Repos.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models.Entities;
 using Models.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MaterialManagement.web.Controllers.API
 {
@@ -98,7 +94,7 @@ namespace MaterialManagement.web.Controllers.API
             }
             if (id != model.Id)
             {
-                return BadRequest("Ids did not match");
+                return BadRequest("Id did not match");
             }
 
             if (model == null)
@@ -109,7 +105,6 @@ namespace MaterialManagement.web.Controllers.API
                 var entity = mapper.Map<ItemGroup>(model);
                 entity.ModifiedDate = DateTime.Now;
                  mastersFactory.GetGroupRepo.Update(entity);
-                //mastersFactory.GetGroupRepo.Save();
                 return Ok();
             }
             catch (Exception ex)

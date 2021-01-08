@@ -106,7 +106,7 @@ namespace MaterialManagement.web.Controllers.API
             }
             if (id != model.Id)
             {
-                return BadRequest("Ids did not match");
+                return BadRequest("Id did not match");
             }
 
             if (model == null)
@@ -117,7 +117,6 @@ namespace MaterialManagement.web.Controllers.API
                 var entity = mapper.Map<Item>(model);
                 entity.ModifiedDate = DateTime.Now;
                 _mFactory.GetItemRepo.Update(entity);
-                //mastersFactory.GetGroupRepo.Save();
                 return Ok();
             }
             catch (Exception ex)
