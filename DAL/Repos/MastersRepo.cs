@@ -33,10 +33,77 @@ namespace DAL.Repos
         public GroupRepo(AppDbContext db) : base(db)
         {
             this.db = db;
+        }        
+    }
+
+
+    public class CountryRepo : BaseRepo <Country>
+    {
+        private readonly AppDbContext db;
+        public CountryRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
         }
-        //bool IEnumerable<ItemGroup> GroupItemExists(int id)
-        //{
-        //    return db.Items.Any(e => e.Id == id);
-        //}
+        
+    }
+
+    public class StateRepo : BaseRepo<State>
+    {
+        private readonly AppDbContext db;
+        public StateRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
+    }
+
+    public class CityRepo : BaseRepo<City>
+    {
+        private readonly AppDbContext db;
+        public CityRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
+    }
+
+    public class UnitRepo : BaseRepo<Unit>
+    {
+        private readonly AppDbContext db;
+        public UnitRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
+    }
+
+    public class RegionRepo : BaseRepo<Region>
+    {
+        private readonly AppDbContext db;
+        public RegionRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
+    }
+
+    public class ProjectRepo : BaseRepo<Project>
+    {
+        private readonly AppDbContext db;
+        public ProjectRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
+    }
+
+    public class CompanyRepo : BaseRepo<Company>
+    {
+        private readonly AppDbContext db;
+        public CompanyRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+
     }
 }
