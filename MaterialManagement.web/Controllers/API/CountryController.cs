@@ -6,9 +6,6 @@ using Microsoft.Extensions.Logging;
 using Models.Entities;
 using Models.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MaterialManagement.web.Controllers.API
 {
@@ -66,7 +63,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<Company> Post([FromBody] CountryVM model)
+        public ActionResult Post([FromBody] CountryVM model)
         {
             try
             {
@@ -88,7 +85,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Country> Put(int id, [FromBody] CountryVM model)
+        public ActionResult Put(int id, [FromBody] CountryVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -120,7 +117,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Country> Delete(CountryVM model)
+        public ActionResult Delete(CountryVM model)
         {
             try
             {

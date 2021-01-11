@@ -69,7 +69,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<City> Post([FromBody] CityVM model)
+        public ActionResult Post([FromBody] CityVM model)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public ActionResult<City> Put(int id, [FromBody] CityVM model)
+        public ActionResult Put(int id, [FromBody] CityVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -117,13 +117,10 @@ namespace MaterialManagement.web.Controllers.API
                 Logger.LogError(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-
-
-
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<City> Delete(CityVM model)
+        public ActionResult Delete(CityVM model)
         {
             try
             {

@@ -68,7 +68,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<State> Post([FromBody] StateVM model)
+        public ActionResult Post([FromBody] StateVM model)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public ActionResult<State> Put(int id, [FromBody] StateVM model)
+        public ActionResult Put(int id, [FromBody] StateVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<State> Delete(StateVM model)
+        public ActionResult Delete(StateVM model)
         {
             try
             {

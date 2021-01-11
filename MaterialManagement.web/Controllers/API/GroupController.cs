@@ -42,7 +42,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<ItemGroup> Get(int id)
+        public ActionResult<ItemGroupVM> Get(int id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<ItemGroup> Post([FromBody] ItemGroupVM model)
+        public ActionResult Post([FromBody] ItemGroupVM model)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ItemGroup> Put(int id, [FromBody]  ItemGroupVM model)
+        public ActionResult Put(int id, [FromBody]  ItemGroupVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace MaterialManagement.web.Controllers.API
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<ItemGroup> Delete(ItemGroupVM model)
+        public ActionResult Delete(ItemGroupVM model)
         {
             try
             {
