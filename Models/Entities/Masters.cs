@@ -99,4 +99,83 @@ namespace Models.Entities
         public string CityName { get; set; }
         public bool IsActive { get; set; }
     }
+
+    public class Vendor : EntityBase
+    {
+        [StringLength(15)]
+        public string CompanyId { get; set; }        
+        public string ProjectId { get; set; }
+        [StringLength(15)]
+        public string VendorID { get; set; }
+        [StringLength(100)]
+        public string Name { get; set; }
+        public string Address { get; set; }
+        [StringLength(50)]
+        public string Country { get; set; }
+        [StringLength(50)]
+        public string State { get; set; }
+        [StringLength(50)]
+        public string City { get; set; }
+        [StringLength(12)]
+        public string MobileNo { get; set; }
+        [StringLength(50)]
+        public string Email { get; set; }
+        [StringLength(50)]
+        public string VendorType { get; set; }        
+        public bool IsActive { get; set; }
+        [StringLength(15)]
+        public string PanNo { get; set; }
+        [StringLength(15)]
+        public string TinNo { get; set; }
+        [StringLength(15)]
+        public string EccNo { get; set; }
+        [StringLength(20)]
+        public string RegistrationType { get; set; }
+        [StringLength(10)]
+        public string PinCode { get; set; }
+        [StringLength(15)]
+        public string SalesTaxNo { get; set; }
+        [StringLength(15)]
+        public string CSTNo { get; set; }
+        [StringLength(15)]
+        public string ServiceTaxNo { get; set; }
+        [StringLength(15)]
+        public string PhoneNo { get; set; }
+        [StringLength(5)]
+        public string BlackListStatus { get; set; }
+        [StringLength(50)]
+        public string ContactPerson { get; set; }
+        [StringLength(15)]
+        public string MulRegistrationType { get; set; }
+        [StringLength(15)]
+        public string VAT_No { get; set; }
+        [StringLength(50)]
+        public string GST_NO { get; set; }
+        [StringLength(20)]
+        public string Aadhaar_No { get; set; }
+
+    }
+
+    public class VendorRegistrationType : EntityBase
+    {
+        [StringLength(20)]
+        public string CompanyID { get; set; }
+        [StringLength(20)]
+        public string TypeID { get; set; }
+        [StringLength(100)]
+        public string VendorType { get; set; }        
+        public bool IsActive { get; set; }
+
+    }
+    public class RefTable : EntityBase
+    {
+        [StringLength(50)]
+        public string Ref_Code { get; set; }
+        [StringLength(50)]
+        public string Ref_GroupName { get; set; }
+        [StringLength(100)]
+        public string Ref_Name { get; set; }
+        public bool IsActive { get; set; }
+    }
+
 }

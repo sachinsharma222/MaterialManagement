@@ -141,4 +141,50 @@ namespace MaterialManagement.web.MapperMaps
         }
     }
 
+
+    public class VendorProfile : Profile
+    {
+        public VendorProfile()
+        {
+            this.CreateMap<Vendor, VendorVM>();
+        }
+    }
+    public class VendorReverseProfile : Profile
+    {
+        public VendorReverseProfile()
+        {
+            this.CreateMap<VendorVM, Vendor>();
+        }
+    }
+
+    public class VendorRegistrationTypeProfile : Profile
+    {
+        public VendorRegistrationTypeProfile()
+        {
+            this.CreateMap<VendorRegistrationType, VendorRegistrationTypeVM>();
+        }
+    }
+    public class VendorRegistrationTypeReverseProfile : Profile
+    {
+        public VendorRegistrationTypeReverseProfile()
+        {
+            this.CreateMap<VendorRegistrationTypeVM, VendorRegistrationType>();
+        }
+    }
+
+    public class RefTableProfile : Profile
+    {
+        public RefTableProfile()
+        {
+            this.CreateMap<RefTable, RefTableVM>();
+        }
+    }
+    public class RefTableReverseProfile : Profile
+    {
+        public RefTableReverseProfile()
+        {
+            this.CreateMap<RefTableVM, RefTable>();
+        }
+    }
+
 }

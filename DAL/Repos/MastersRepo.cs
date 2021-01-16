@@ -104,6 +104,32 @@ namespace DAL.Repos
         {
             this.db = db;
         }
+    }
 
+
+    public class VendorRepo : BaseRepo<Vendor>
+    {
+        private readonly AppDbContext db;
+        public VendorRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+    }
+    public class VendorRegistrationTypeRepo : BaseRepo<VendorRegistrationType>
+    {
+        private readonly AppDbContext db;
+        public VendorRegistrationTypeRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
+    }
+
+    public class RefTableRepo : BaseRepo<RefTable>
+    {
+        private readonly AppDbContext db;
+        public RefTableRepo(AppDbContext db) : base(db)
+        {
+            this.db = db;
+        }
     }
 }
